@@ -36,6 +36,10 @@ body {
 
 .app-container {
   .app-header {
+    #basic-navbar-nav {
+      justify-content: center !important;
+    }
+
     .navbar {
       background: linear-gradient(300deg, #F7F7F7, #EEEEEE, #929AAB);
       background-size: 180% 180%;
