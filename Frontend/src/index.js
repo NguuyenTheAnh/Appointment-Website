@@ -12,6 +12,8 @@ import {
 } from 'react-router-dom'
 import HomePage from './components/Home/HomePage';
 import Contact from './components/Contact';
+import Booking from './components/Booking';
+import Appointment from './components/Appointment';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -20,7 +22,9 @@ root.render(
       <Routes>
         <Route path='/' element={<App />}>
           <Route index element={<HomePage />} />
-          <Route path='/contact' element={<Contact />} />
+          <Route path='booking' element={<Booking />} />
+          <Route path='contact' element={<Contact />} />
+          <Route path='appointment' element={<Appointment />} />
         </Route>
       </Routes>
     </BrowserRouter>

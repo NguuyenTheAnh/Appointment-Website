@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import './App.scss';
-import Header from './components/Header';
-
+import Header from '../src/layout/Header'
+import Footer from '../src/layout/Footer'
 
 const App = () => {
   return (
@@ -12,6 +12,7 @@ const App = () => {
       <div className='app-content'>
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 }
