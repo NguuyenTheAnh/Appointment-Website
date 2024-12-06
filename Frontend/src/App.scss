@@ -37,7 +37,7 @@ body {
 .app-container {
   display: grid;
   height: 100vh;
-  grid-template-rows: 2fr 25fr 6fr;
+  grid-template-rows: 72px auto 300px;
   grid-template-columns: 1fr;
 
   .app-header {

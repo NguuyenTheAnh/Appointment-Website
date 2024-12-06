@@ -1,10 +1,10 @@
-const resData = () => {
-    const data = {
-        data: '',
-        error: 0,
-        message: ''
+const resData = (data, errorCount, message) => {
+    const result = {
+        data: data,
+        errorCount: errorCount,
+        message: message
     };
-    return data;
+    return result;
 }
 
 export default resData;

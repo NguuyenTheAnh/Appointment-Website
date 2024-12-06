@@ -1,5 +1,5 @@
 import React from 'react';
-import videoHomePage from '../../assets/Booking.mp4';
+import videoHomePage from '../../assets/videos/Booking.mp4';
 const VideoContent = () => {
     return (
         <div className="col-lg-6 offset-lg-1 p-0 overflow-hidden shadow-lg rounded-3">
