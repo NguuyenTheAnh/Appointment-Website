@@ -3,6 +3,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import cors from 'cors';
 
 const configViewEngine = (app) => {
     //config static files
@@ -13,5 +14,8 @@ const configViewEngine = (app) => {
     //req.body Config
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
+
+    //cors config
+    app.use(cors());
 }
 export { configViewEngine }

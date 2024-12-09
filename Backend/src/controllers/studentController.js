@@ -37,7 +37,7 @@ const apiFilterTeachers = async (req, res) => {
 }
 const apiSearchTeachers = async (req, res) => {
     try {
-        const teacherName = req.body.teacherName;
+        const teacherName = req.query.teacherName;
         let data = await searchTeachers(teacherName);
         data = data.map((item) => {
             item.image = `http://localhost:${port}/images/${item.image}`;

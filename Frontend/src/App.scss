@@ -52,6 +52,7 @@ body {
       background: linear-gradient(300deg, #F7F7F7, #EEEEEE, #929AAB);
       background-size: 180% 180%;
       animation: gradient-animation 12s ease infinite;
+      z-index: 10;
 
       .container {
         margin-top: 8px;
@@ -94,7 +95,16 @@ body {
     grid-column: 1/2;
 
     .title {
-      padding-left: 180px !important;
+      display: flex;
+      justify-content: center;
+
+      .title-content {
+        width: 80%;
+
+        button {
+          width: fit-content;
+        }
+      }
     }
 
     .features {

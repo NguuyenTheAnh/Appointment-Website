@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 mt-5 border-top app-footer">
+        <footer className="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 mt-5 border-top app-footer flex-nowrap">
             <div className="col mb-3 d-flex justify-content-center">
 
                 <p className="text-body-secondary">© Bookla</p>

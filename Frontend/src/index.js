@@ -12,8 +12,8 @@ import {
 } from 'react-router-dom'
 import HomePage from './components/Home/HomePage';
 import Contact from './components/Contact';
-import Booking from './components/Booking';
-import Appointment from './components/Appointment';
+import Booking from './components/Booking/Booking';
+import Appointment from './components/Appointment/Appointment';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
