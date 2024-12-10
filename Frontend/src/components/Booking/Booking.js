@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
 import Department from './ListDepartment';
-import Paginate from './Paginate';
 import './Booking.scss';
 import ListTeacher from './ListTeacher';
 import SearchTeacher from './SearchTeacher';
 
 const Booking = () => {
     const [listTeacher, setListTeacher] = useState([]);
+    const [isShowPageListTeacher, setShowPageListTeacher] = useState(true);
+    const [isShowPageDepartment, setShowPageDepartment] = useState(false);
     return (
         <div className='booking' >
-            <SearchTeacher listTeacher={listTeacher} setListTeacher={setListTeacher} />
-            <ListTeacher listTeacher={listTeacher} setListTeacher={setListTeacher} />
-            <Department listTeacher={listTeacher} setListTeacher={setListTeacher} />
-            <Paginate />
+            <ListTeacher
+                listTeacher={listTeacher} setListTeacher={setListTeacher}
+                setShowPageListTeacher={setShowPageListTeacher}
+                setShowPageDepartment={setShowPageDepartment}
+                isShowPageDepartment={isShowPageDepartment}
+                isShowPageListTeacher={isShowPageListTeacher}
+            />
+            <Department
+                listTeacher={listTeacher} setListTeacher={setListTeacher}
+                setShowPageListTeacher={setShowPageListTeacher}
+                setShowPageDepartment={setShowPageDepartment}
+                isShowPageDepartment={isShowPageDepartment}
+                isShowPageListTeacher={isShowPageListTeacher}
+            />
+            <SearchTeacher
+                listTeacher={listTeacher} setListTeacher={setListTeacher}
+            />
         </div>
     );
 };

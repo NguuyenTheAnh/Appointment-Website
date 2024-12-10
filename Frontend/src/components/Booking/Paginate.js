@@ -1,17 +1,15 @@
 import Pagination from 'react-bootstrap/Pagination';
 
-let active = 2;
-let items = [];
-for (let number = 1; number <= 5; number++) {
-    items.push(
-        <Pagination.Item key={number}>
-            {number}
-        </Pagination.Item>,
-    );
-}
-const Paginate = () => {
+const Paginate = (props) => {
+    const { pages, pageCurr, setPageCurr } = props;
     return (
-        <Pagination className='paginate'>{items}</Pagination>
+        <Pagination className='paginate'>
+            {pages.map((page) =>
+                <Pagination.Item key={page} active={page === pageCurr} onClick={() => { setPageCurr(page) }} >
+                    {page}
+                </Pagination.Item>
+            )}
+        </Pagination>
     );
 };
 

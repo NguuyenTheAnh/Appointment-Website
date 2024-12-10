@@ -48,4 +48,17 @@ const searchTeachers = async (teacherName) => {
     })
     return result;
 }
-export { getAllTeachers, filterTeachers, searchTeachers };
+const getTeacherInfo = async (teacherId) => {
+    const { rows } = await db.query(
+        `SELECT users.id, username, email, name, phone, address, image, department_name
+         FROM users
+         JOIN department ON department.id=users.department_id
+         JOIN roles ON roles.id=users.role_id
+         WHERE role_id=2
+         AND users.id=$1;`,
+        [teacherId]
+    );
+    return rows;
+}
+
+export { getAllTeachers, filterTeachers, searchTeachers, getTeacherInfo };

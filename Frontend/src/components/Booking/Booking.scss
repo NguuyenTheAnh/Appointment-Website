@@ -1,7 +1,7 @@
 .booking {
     display: grid;
     grid-template-columns: 400px auto;
-    grid-template-rows: 125px 2000px 40px;
+    grid-template-rows: 125px 850px 40px;
     gap: 10px;
 
     .list-department {
@@ -87,8 +87,12 @@
         gap: 20px;
         align-content: flex-start;
 
-        .card-body {
-            background-color: #f3f3ff,
+        .item {
+            cursor: pointer;
+
+            .card-body {
+                background-color: #f3f3ff,
+            }
         }
     }
 
@@ -97,5 +101,11 @@
         grid-row: 3/4;
         display: flex;
         justify-content: center;
+
+        .page-item.active {
+            .page-link {
+                background-color: #7e7eff !important;
+            }
+        }
     }
 }

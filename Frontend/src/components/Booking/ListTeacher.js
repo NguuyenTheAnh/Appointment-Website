@@ -1,26 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getAllTeachers } from '../../services/apiStudent';
 import CardTeacher from './CardTeacher';
+import Paginate from './Paginate';
+import { Link } from 'react-router-dom';
 
 const ListTeacher = (props) => {
-    const { listTeacher, setListTeacher } = props;
+    const {
+        listTeacher, setListTeacher,
+        isShowPageDepartment, setShowPageDepartment,
+        isShowPageListTeacher, setShowPageListTeacher
+    } = props;
+
+    const [pageCurr, setPageCurr] = useState(1);
+    const [pages, setPages] = useState([]);
+
+
     useEffect(() => {
-        fetchDataListTeacher();
-    }, []);
-    const fetchDataListTeacher = async () => {
-        const res = await getAllTeachers();
-        setListTeacher(res.data);
+        fetchDataListTeacher(pageCurr);
+    }, [pageCurr]);
+    const fetchDataListTeacher = async (pageCurr) => {
+        const res = await getAllTeachers(pageCurr);
+        setListTeacher(res.data.teachers);
+        let totalPages = res.data.pageInfo.totalPages;
+        let listPages = [];
+        for (let i = 1; i <= totalPages; i++) listPages.push(i);
+        setPages(listPages);
     }
     return (
-        <div className='list-teacher'>
-            {listTeacher.map((teacher, index) => {
-                return (
-                    <div key={index} className='item'>
-                        {/* <p>{JSON.stringify(teacher)}</p> */}
-                        <CardTeacher image={teacher.image} name={teacher.name} department={teacher.department_name} />
-                    </div>)
-            })}
-        </div>
+        <>
+            <div className='list-teacher'>
+                {listTeacher.map((teacher, index) => {
+                    return (
+                        <Link to={`/teacherInfo/${teacher.id}`} style={{ textDecoration: 'none' }}>
+                            <div key={index} className='item'>
+                                <CardTeacher image={teacher.image} name={teacher.name} department={teacher.department_name} />
+                            </div>
+                        </Link>
+                    )
+                })}
+            </div>
+            {isShowPageListTeacher && <Paginate pages={pages} pageCurr={pageCurr} setPageCurr={setPageCurr} />}
+            {/* <Paginate pages={pages} pageCurr={pageCurr} setPageCurr={setPageCurr} /> */}
+        </>
     );
 };
 

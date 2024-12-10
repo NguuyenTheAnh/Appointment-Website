@@ -14,6 +14,7 @@ import HomePage from './components/Home/HomePage';
 import Contact from './components/Contact';
 import Booking from './components/Booking/Booking';
 import Appointment from './components/Appointment/Appointment';
+import TeacherInfo from './components/TeacherInfo';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -25,6 +26,7 @@ root.render(
           <Route path='booking' element={<Booking />} />
           <Route path='contact' element={<Contact />} />
           <Route path='appointment' element={<Appointment />} />
+          <Route path='teacherInfo/:teacherId' element={<TeacherInfo />} />
         </Route>
       </Routes>
     </BrowserRouter>
