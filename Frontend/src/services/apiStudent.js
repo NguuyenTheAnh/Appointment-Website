@@ -25,4 +25,20 @@ const searchTeachers = async (name, page) => {
     return data;
 }
 
-export { getAllTeachers, filterTeachers, searchTeachers }
+const getTeacherInfo = async (teacherId) => {
+    const { data } = await axios.get(`api/teacherInfo/${teacherId}`);
+    return data;
+}
+
+const getTeacherSchedule = async (teacherId) => {
+    const { data } = await axios.get(`api/teacherSchedule/${teacherId}`);
+    return data;
+}
+
+export {
+    getAllTeachers,
+    filterTeachers,
+    searchTeachers,
+    getTeacherInfo,
+    getTeacherSchedule
+}

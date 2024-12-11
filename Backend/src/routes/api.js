@@ -1,5 +1,11 @@
 import express from 'express';
-import { apiGetAllTeachers, apiFilterTeachers, apiSearchTeachers, apiGetTeacherInfo } from '../controllers/studentController.js';
+import {
+    apiGetAllTeachers,
+    apiFilterTeachers,
+    apiSearchTeachers,
+    apiGetTeacherInfo,
+    apiGetTeacherSchedule
+} from '../controllers/studentController.js';
 
 const router = express.Router();
 
@@ -12,6 +18,7 @@ router.get("/api/searchTeachers", apiSearchTeachers); // search teachers in list
 // >>> 2
 // render teacher's schedules, info
 router.get("/api/teacherInfo/:teacherId", apiGetTeacherInfo); // get teacher info when had teacher'id
+router.get("/api/teacherSchedule/:teacherId", apiGetTeacherSchedule); // get teacher's schedule
 
 
 

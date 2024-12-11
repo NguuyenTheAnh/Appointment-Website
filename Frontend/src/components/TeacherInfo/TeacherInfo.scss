@@ -1,0 +1,112 @@
+.teacher-info {
+    height: 700px;
+    display: grid;
+    padding: 50px 100px 30px 150px;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 30px;
+
+    .image {
+        grid-column: 1/2;
+        grid-row: 1/2;
+        max-height: 295px;
+        border: 2px solid #d9d9d9;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+
+        img {
+            max-height: 100%;
+        }
+
+    }
+
+    .info {
+        grid-column: 2/3;
+        grid-row: 1/2;
+        border: 2px solid #d9d9d9;
+        border-radius: 10px;
+        padding: 30px 150px 0px 40px;
+
+        h6 {
+            color: #7e7eff;
+        }
+    }
+
+    .schedule {
+        grid-column: 2/3;
+        grid-row: 2/3;
+
+        .schedule-nextWeek {
+            .header {
+                color: #7e7eff;
+                margin-bottom: 40px;
+            }
+
+            .list-day {
+                display: flex;
+                gap: 15px;
+                margin-bottom: 25px;
+
+                .day {
+                    width: 60px;
+                    padding: 10px 0px 10px 0px;
+                    border: 2px solid #393E46;
+                    border-radius: 25px;
+
+                    &:hover {
+                        border: 0;
+                        background-color: #b5b5ff;
+                    }
+
+                    &.active {
+                        background-color: #7e7eff
+                    }
+
+                    cursor: pointer;
+
+                    p {
+                        display: flex;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            .list-time {
+                display: flex;
+                flex: wrap;
+                gap: 10px;
+                height: 40px;
+                margin-bottom: 30px;
+
+                .time {
+                    border: 2px solid #393E46;
+                    border-radius: 20px;
+                    padding: 5px 15px 5px 15px;
+                    cursor: pointer;
+
+                    &:hover {
+                        border: 0;
+                        background-color: #b5b5ff;
+                    }
+
+                    &.active {
+                        background-color: #7e7eff
+                    }
+
+                }
+
+                .no-free-time {
+                    font-size: large;
+                    color: red;
+                }
+
+                .text {
+                    font-size: large;
+                    color: #7e7eff;
+                }
+            }
+
+        }
+    }
+}

@@ -9,7 +9,7 @@ const Department = (props) => {
         isShowPageDepartment, setShowPageDepartment,
         isShowPageListTeacher, setShowPageListTeacher
     } = props;
-    const [departmentId, setDepartmentId] = useState(1);
+    const [departmentId, setDepartmentId] = useState(0);
     const [pageCurr, setPageCurr] = useState(1);
     const [pages, setPages] = useState([]);
     const [active, setActive] = useState(false);
@@ -57,6 +57,7 @@ const Department = (props) => {
                             setPageCurr(1);
                             fetchDataListTeacher(1);
                             setActiveFilter(false);
+                            setDepartmentId(0);
                         }}
                     >
                         <b>Department</b>
@@ -78,7 +79,7 @@ const Department = (props) => {
                         'Khoa Giáo dục Thể chất',
                         'Khoa Giáo dục Quốc phòng & An ninh',
                     ].map((item, index) => (
-                        <ListGroup.Item className='item' key={index + 1}
+                        <ListGroup.Item className='item' key={index + 1} active={(index + 1) === departmentId}
                             onClick={() => {
                                 fetchDataListFilteredTeacher((index + 1), pageCurr);
                                 setDepartmentId(index + 1);

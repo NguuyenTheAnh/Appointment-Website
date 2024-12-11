@@ -31,11 +31,11 @@ const ListTeacher = (props) => {
             <div className='list-teacher'>
                 {listTeacher.map((teacher, index) => {
                     return (
-                        <Link to={`/teacherInfo/${teacher.id}`} style={{ textDecoration: 'none' }}>
-                            <div key={index} className='item'>
+                        <div key={index} className='item'>
+                            <Link to={`/teacherInfo/${teacher.id}`} style={{ textDecoration: 'none' }}>
                                 <CardTeacher image={teacher.image} name={teacher.name} department={teacher.department_name} />
-                            </div>
-                        </Link>
+                            </Link>
+                        </div>
                     )
                 })}
             </div>

@@ -1,4 +1,10 @@
-import { filterTeachers, getAllTeachers, searchTeachers, getTeacherInfo } from '../services/studentServices.js';
+import {
+    filterTeachers,
+    getAllTeachers,
+    searchTeachers,
+    getTeacherInfo,
+    getTeacherSchedule
+} from '../services/studentServices.js';
 import resData from '../helpers/jsonFormat.js'
 import env from 'dotenv';
 import pagination from '../helpers/pagination.js';
@@ -76,7 +82,6 @@ const apiSearchTeachers = async (req, res) => {
         res.status(500).json(resData('', 1, 'Server error'));
     }
 }
-
 const apiGetTeacherInfo = async (req, res) => {
     try {
         const teacherId = req.params.teacherId;
@@ -89,5 +94,42 @@ const apiGetTeacherInfo = async (req, res) => {
         res.status(500).json(resData('', 1, 'Server error'));
     }
 }
-
-export { apiGetAllTeachers, apiFilterTeachers, apiSearchTeachers, apiGetTeacherInfo }
+// func search time of day
+const timeOfDay = (day, schedules) => {
+    const listDay = schedules.filter((schedule) => schedule.day == day);
+    let listTime = [];
+    listDay.forEach(element => {
+        listTime.push(element.start_time);
+    });
+    listTime.sort((a, b) => {
+        return a.localeCompare(b); // sort start time asc
+    });
+    return listTime;
+}
+const apiGetTeacherSchedule = async (req, res) => {
+    try {
+        const teacherId = req.params.teacherId;
+        const schedules = await getTeacherSchedule(teacherId);
+        let listDay = [
+            { dayName: 'MON', listStartTime: timeOfDay('MON', schedules) },
+            { dayName: 'TUE', listStartTime: timeOfDay('TUE', schedules) },
+            { dayName: 'WED', listStartTime: timeOfDay('WED', schedules) },
+            { dayName: 'THU', listStartTime: timeOfDay('THU', schedules) },
+            { dayName: 'FRI', listStartTime: timeOfDay('FRI', schedules) },
+            { dayName: 'SAT', listStartTime: timeOfDay('SAT', schedules) },
+            { dayName: 'SUN', listStartTime: timeOfDay('SUN', schedules) }
+        ]
+        const result = resData(listDay, 0, 'Get all filtered teachers successfully');
+        res.json(result);
+    } catch (error) {
+        console.log('Error getting: ', error);
+        res.status(500).json(resData('', 1, 'Server error'));
+    }
+}
+export {
+    apiGetAllTeachers,
+    apiFilterTeachers,
+    apiSearchTeachers,
+    apiGetTeacherInfo,
+    apiGetTeacherSchedule
+}

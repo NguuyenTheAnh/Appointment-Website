@@ -40,8 +40,8 @@
                     cursor: pointer;
                 }
 
-                &:active {
-                    background-color: #EEEEEE;
+                &.active {
+                    background-color: #7e7eff;
                 }
             }
         }

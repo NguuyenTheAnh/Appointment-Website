@@ -60,5 +60,20 @@ const getTeacherInfo = async (teacherId) => {
     );
     return rows;
 }
+const getTeacherSchedule = async (teacherId) => {
+    const { rows } = await db.query(
+        `SELECT *
+         FROM schedules
+         WHERE teacher_id=$1`,
+        [teacherId]
+    );
+    return rows;
+}
 
-export { getAllTeachers, filterTeachers, searchTeachers, getTeacherInfo };
+export {
+    getAllTeachers,
+    filterTeachers,
+    searchTeachers,
+    getTeacherInfo,
+    getTeacherSchedule
+};

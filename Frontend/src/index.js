@@ -14,7 +14,7 @@ import HomePage from './components/Home/HomePage';
 import Contact from './components/Contact';
 import Booking from './components/Booking/Booking';
 import Appointment from './components/Appointment/Appointment';
-import TeacherInfo from './components/TeacherInfo';
+import TeacherInfo from './components/TeacherInfo/TeacherInfo';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
