@@ -11,10 +11,10 @@ import {
   Routes
 } from 'react-router-dom'
 import HomePage from './components/Home/HomePage';
-import Contact from './components/Contact';
 import Booking from './components/Booking/Booking';
 import Appointment from './components/Appointment/Appointment';
 import TeacherInfo from './components/TeacherInfo/TeacherInfo';
+import Login from './components/Auth/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,10 +24,10 @@ root.render(
         <Route path='/' element={<App />}>
           <Route index element={<HomePage />} />
           <Route path='booking' element={<Booking />} />
-          <Route path='contact' element={<Contact />} />
           <Route path='appointment' element={<Appointment />} />
           <Route path='teacherInfo/:teacherId' element={<TeacherInfo />} />
         </Route>
+        <Route path='/login' element={<Login />} />
       </Routes>
     </BrowserRouter>
   </Provider>
