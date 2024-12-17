@@ -9,6 +9,9 @@ const Header = () => {
     const handleClickLogin = () => {
         navigate('/login')
     }
+    const handleClickSignup = () => {
+        navigate('/signup');
+    }
     return (
         <Navbar expand="lg" className="bg-body-tertiary shadow-sm">
             <Container>
@@ -22,7 +25,7 @@ const Header = () => {
                     </Nav>
                     <Nav className='btn-login-signup'>
                         <Button variant="light" className='btn-login' onClick={() => handleClickLogin()}>Log in</Button>
-                        <Button variant="dark" className='btn-signup'>Sign up</Button>
+                        <Button variant="dark" className='btn-signup' onClick={() => handleClickSignup()}>Sign up</Button>
                     </Nav>
                 </Navbar.Collapse>
             </Container>

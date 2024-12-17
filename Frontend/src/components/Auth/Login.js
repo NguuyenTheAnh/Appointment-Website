@@ -13,13 +13,16 @@ const Login = () => {
 
         // submit api
     }
+    const handleClickSignup = () => {
+        navigate('/signup');
+    }
     return (
         <div className='login'>
             <div className='header'>
                 <h4>Bookla</h4>
                 <div className='not-account'>
                     <p>Don't have an account yet?</p>
-                    <Button variant="light">Sign up</Button>
+                    <Button variant="light" onClick={() => handleClickSignup()}>Sign up</Button>
                 </div>
             </div>
             <div className='main-container'>

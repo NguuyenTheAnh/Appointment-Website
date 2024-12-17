@@ -51,7 +51,7 @@
                 .day {
                     width: 60px;
                     padding: 10px 0px 10px 0px;
-                    border: 2px solid #393E46;
+                    border: 1px solid #393E46;
                     border-radius: 25px;
 
                     &:hover {
@@ -60,6 +60,7 @@
                     }
 
                     &.active {
+                        border: 0;
                         background-color: #7e7eff
                     }
 
@@ -80,7 +81,7 @@
                 margin-bottom: 30px;
 
                 .time {
-                    border: 2px solid #393E46;
+                    border: 1px solid #393E46;
                     border-radius: 20px;
                     padding: 5px 15px 5px 15px;
                     cursor: pointer;
@@ -91,6 +92,7 @@
                     }
 
                     &.active {
+                        border: 0;
                         background-color: #7e7eff
                     }
 

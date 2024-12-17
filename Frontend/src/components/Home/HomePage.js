@@ -5,7 +5,7 @@ import Features from './Features';
 
 const HomePage = () => {
     return (
-        <div className="row p-0 pb-0 pe-lg-0 pt-lg-5 align-items-center ">
+        <div className="row p-0 pb-0 pe-lg-0 pt-lg-5 align-items-center homepage ">
             <Title />
             <VideoContent />
             <Features />

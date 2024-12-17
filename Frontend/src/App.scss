@@ -94,26 +94,30 @@ body {
     grid-row: 2/3;
     grid-column: 1/2;
 
-    .title {
-      display: flex;
-      justify-content: center;
+    .homepage {
+      width: 100% !important;
 
-      .title-content {
-        width: 80%;
+      .title {
+        display: flex;
+        justify-content: center;
 
-        button {
-          width: fit-content;
+        .title-content {
+          width: 80%;
+
+          button {
+            width: fit-content;
+          }
         }
       }
-    }
 
-    .features {
-      border-top: 1px solid #e6e6e6;
+      .features {
+        border-top: 1px solid #e6e6e6;
 
-      .icon-square {
-        width: 3rem;
-        height: 3rem;
-        border-radius: 0.75rem;
+        .icon-square {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 0.75rem;
+        }
       }
     }
   }
@@ -121,6 +125,9 @@ body {
   .app-footer {
     grid-row: 3/4;
     grid-column: 1/2;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
     background: linear-gradient(300deg, #F7F7F7, #EEEEEE, #929AAB);
     background-size: 180% 180%;
     animation: gradient-animation 12s ease infinite;
