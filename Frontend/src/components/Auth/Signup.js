@@ -4,11 +4,13 @@ import './Signup.scss';
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from "react-router";
 import { toast } from 'react-toastify';
+import { signup } from '../../services/apiStudent';
 
 const Signup = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [roleId, setRoleId] = useState(1);
     const defaultInputs = {
         isValidEmail: true,
         isValidPassword: true,
@@ -22,8 +24,7 @@ const Signup = () => {
             /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
     };
-
-    const handleClickSignup = () => {
+    const handleClickSignup = async () => {
         setObjCheckInputs(defaultInputs);
         let userData = { email, password, confirmPassword };
         // validate
@@ -42,13 +43,24 @@ const Signup = () => {
             setObjCheckInputs({ ...defaultInputs, isValidConfirmPassword: false });
             return;
         }
-        toast.success('Create account successfully');
-        // call api
 
+        // call api
+        let response = await signup(email, password, roleId);
+        if (response.data.errorCount == 0) {
+            toast.success(response.data.message);
+            navigate('/login')
+        }
+        else toast.error(response.data.message);
 
     }
     const handleClickLogin = () => {
         navigate('/login');
+    }
+    const handleCheckBox = (event) => {
+        if (event.target.checked) {
+            setRoleId(2);
+        }
+        else setRoleId(1);
     }
     return (
         <div className='signup'>
@@ -72,7 +84,7 @@ const Signup = () => {
                             type='email'
                             placeholder='abc@gmail.com'
                             value={email}
-                            className={objCheckInputs.isValidEmail ? '' : 'form-control is-invalid'}
+                            className={objCheckInputs.isValidEmail ? 'auth-input' : 'form-control is-invalid auth-input'}
                             onChange={(event) => setEmail(event.target.value)}
                         />
                         <h6>Password</h6>
@@ -80,7 +92,7 @@ const Signup = () => {
                             type='password'
                             placeholder='Enter your password'
                             value={password}
-                            className={objCheckInputs.isValidPassword ? '' : 'form-control is-invalid'}
+                            className={objCheckInputs.isValidPassword ? 'auth-input' : 'form-control is-invalid auth-input'}
                             onChange={(event) => setPassword(event.target.value)}
                         />
                         <h6>Confirm Password</h6>
@@ -88,10 +100,15 @@ const Signup = () => {
                             type='password'
                             placeholder='Re-enter your password'
                             value={confirmPassword}
-                            className={objCheckInputs.isValidConfirmPassword ? 'confirm-password' : 'form-control is-invalid confirm-password'}
+                            className={objCheckInputs.isValidConfirmPassword ? 'auth-input confirm-password' : 'form-control is-invalid confirm-password auth-input'}
                             onChange={(event) => setConfirmPassword(event.target.value)}
                         />
-                        <p>If you are teacher, <a href='/signup-teacher'>Click here</a></p>
+                        <div className="form-check">
+                            <label className="form-check-label" >Are you a teacher? </label>
+                            <input type="checkbox" className="form-check-input"
+                                onChange={(event) => handleCheckBox(event)}
+                            />
+                        </div>
                     </div>
                     <Button
                         variant="dark"

@@ -85,6 +85,21 @@ body {
             width: 80px;
             height: 40px;
           }
+
+          .dropdown {
+            margin-right: 80px;
+
+            .dropdown-menu {
+
+              .dropdown-item {
+
+                &:hover {
+                  background-color: #929AAB;
+                  color: white;
+                }
+              }
+            }
+          }
         }
       }
     }

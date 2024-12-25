@@ -3,15 +3,50 @@ import './Login.scss';
 import Button from 'react-bootstrap/Button';
 import imageURL from '../../assets/images/schedule.png';
 import { useNavigate } from "react-router";
+import { toast } from 'react-toastify';
+import { login } from '../../services/apiStudent';
+import { useDispatch } from 'react-redux';
+import { doLogin } from '../../redux/action/userAction';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const handleClickLogin = () => {
-        // validate
+    const dispatch = useDispatch();
 
-        // submit api
+    const defaultInputs = {
+        isValidEmail: true,
+        isValidPassword: true,
+    }
+    const [objCheckInputs, setObjCheckInputs] = useState(defaultInputs);
+    const checkValidEmail = (email) => {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+    const handleClickLogin = async () => {
+        setObjCheckInputs(defaultInputs);
+        let userData = { email, password };
+        // validate
+        if (!checkValidEmail(userData.email)) {
+            toast.error('Email is invalid');
+            setObjCheckInputs({ ...defaultInputs, isValidEmail: false });
+            return;
+        }
+        if (!userData.password) {
+            toast.error('Enter your password');
+            setObjCheckInputs({ ...defaultInputs, isValidPassword: false });
+            return;
+        }
+        // call api
+        const { data } = await login(email, password);
+        if (data.errorCount == 0) {
+            dispatch(doLogin(data));
+            toast.success(data.message);
+            navigate('/');
+        }
+        else toast.error(data.message);
+
     }
     const handleClickSignup = () => {
         navigate('/signup');
@@ -37,6 +72,7 @@ const Login = () => {
                             type='email'
                             placeholder='abc@gmail.com'
                             value={email}
+                            className={objCheckInputs.isValidEmail ? '' : 'form-control is-invalid'}
                             onChange={(event) => setEmail(event.target.value)}
                         />
                         <h6>Password</h6>
@@ -44,6 +80,7 @@ const Login = () => {
                             type='password'
                             placeholder='Enter your password'
                             value={password}
+                            className={objCheckInputs.isValidPassword ? '' : 'form-control is-invalid'}
                             onChange={(event) => setPassword(event.target.value)}
                         />
                     </div>

@@ -95,7 +95,7 @@
                     margin-left: 2.1em;
                 }
 
-                input {
+                .auth-input {
                     width: 90%;
                     height: 2.8em;
                     padding-left: 1em;
@@ -108,14 +108,11 @@
                     margin-bottom: 0.8em !important;
                 }
 
-                p {
+                .form-check {
                     font-size: 15px;
                     align-self: flex-start;
                     margin-left: 1.3em;
-
-                    a {
-                        text-decoration: none;
-                    }
+                    margin-bottom: 1em;
                 }
 
             }

@@ -16,6 +16,12 @@ const configViewEngine = (app) => {
     app.use(bodyParser.urlencoded({ extended: true }));
 
     //cors config
-    app.use(cors());
+    app.use(cors({
+        origin: process.env.REACT_URL, // Domain you want to allow
+        methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'], // Allowed methods
+        allowedHeaders: ['Content-Type', 'X-Requested-With'], // Allowed headers
+        credentials: true // You need to website to include cookies in the req sent
+    }));
+
 }
 export { configViewEngine }

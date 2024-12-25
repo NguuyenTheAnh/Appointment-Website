@@ -51,7 +51,8 @@
                 .day {
                     width: 60px;
                     padding: 10px 0px 10px 0px;
-                    border: 1px solid #393E46;
+                    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.18);
+                    background-color: #fdfdfd;
                     border-radius: 25px;
 
                     &:hover {
@@ -81,7 +82,8 @@
                 margin-bottom: 30px;
 
                 .time {
-                    border: 1px solid #393E46;
+                    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.18);
+                    background-color: #fdfdfd;
                     border-radius: 20px;
                     padding: 5px 15px 5px 15px;
                     cursor: pointer;

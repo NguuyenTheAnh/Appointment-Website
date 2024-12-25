@@ -6,7 +6,7 @@ import {
     apiGetTeacherInfo,
     apiGetTeacherSchedule
 } from '../controllers/studentController.js';
-import { apiSignup } from '../controllers/auth.js';
+import { apiLogin, apiSignup } from '../controllers/authController.js';
 
 const router = express.Router();
 
@@ -23,7 +23,8 @@ router.get("/api/teacherSchedule/:teacherId", apiGetTeacherSchedule); // get tea
 
 // >>> 3
 // authentication
-router.post("/api/signup", apiSignup);
+router.post("/api/signup", apiSignup); //register
+router.post("/api/login", apiLogin) //login
 
 
 

@@ -75,7 +75,7 @@ const apiSearchTeachers = async (req, res) => {
             teachers: paginate.newItems,
             pageInfo: paginate.pageInfo
         }
-        const result = resData(data, 0, 'Get all filtered teachers successfully');
+        const result = resData(data, 0, 'Search teachers by name successfully');
         res.json(result);
     } catch (error) {
         console.log('Error getting: ', error);
@@ -87,7 +87,7 @@ const apiGetTeacherInfo = async (req, res) => {
         const teacherId = req.params.teacherId;
         const teacher = await getTeacherInfo(teacherId);
         teacher[0].image = `http://localhost:${port}/images/${teacher[0].image}`;
-        const result = resData(teacher[0], 0, 'Get all filtered teachers successfully');
+        const result = resData(teacher[0], 0, 'Get teacher info successfully');
         res.json(result);
     } catch (error) {
         console.log('Error getting: ', error);
@@ -119,7 +119,7 @@ const apiGetTeacherSchedule = async (req, res) => {
             { dayName: 'SAT', listStartTime: timeOfDay('SAT', schedules) },
             { dayName: 'SUN', listStartTime: timeOfDay('SUN', schedules) }
         ]
-        const result = resData(listDay, 0, 'Get all filtered teachers successfully');
+        const result = resData(listDay, 0, 'Get schedules successfully');
         res.json(result);
     } catch (error) {
         console.log('Error getting: ', error);
