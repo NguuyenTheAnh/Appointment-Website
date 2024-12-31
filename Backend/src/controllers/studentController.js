@@ -5,9 +5,9 @@ import {
     getTeacherInfo,
     getTeacherSchedule
 } from '../services/studentServices.js';
-import resData from '../helpers/jsonFormat.js'
-import env from 'dotenv';
+import resData from '../helpers/jsonFormat.js';
 import pagination from '../helpers/pagination.js';
+import env from 'dotenv';
 
 env.config();
 const port = process.env.PORT || 8888;
@@ -94,9 +94,39 @@ const apiGetTeacherInfo = async (req, res) => {
         res.status(500).json(resData('', 1, 'Server error'));
     }
 }
+//next week
+const getDayOfNextWeek = () => {
+    const today = new Date();
+    const daysOfWeek = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+
+    const currentDay = today.getDay(); // 0: SUN, 1: MON, ...
+    const daysToNextMonday = currentDay === 0 ? 1 : 8 - currentDay;
+    const nextMonday = new Date(today);
+    nextMonday.setDate(today.getDate() + daysToNextMonday);
+
+    // Get days from MON to SUN with full date
+    const weekDays = [];
+    for (let i = 0; i < 7; i++) {
+        const day = new Date(nextMonday);
+        day.setDate(nextMonday.getDate() + i);
+
+        // Format date as YYYY-MM-DD
+        const formattedDate = day.toISOString().split("T")[0];
+
+        weekDays.push({
+            dayName: daysOfWeek[i], // Day name
+            date: formattedDate // Full date in YYYY-MM-DD
+        });
+    }
+    return weekDays;
+};
+
 // func search time of day
 const timeOfDay = (day, schedules) => {
-    const listDay = schedules.filter((schedule) => schedule.day == day);
+    let listDayOfNextWeek = getDayOfNextWeek();
+    const listDay = schedules.filter((schedule) => {
+        return schedule.day == day && listDayOfNextWeek.find((item) => item.date == schedule.date_next_week.toISOString().split("T")[0])
+    });
     let listTime = [];
     listDay.forEach(element => {
         listTime.push(element.start_time);
@@ -110,14 +140,15 @@ const apiGetTeacherSchedule = async (req, res) => {
     try {
         const teacherId = req.params.teacherId;
         const schedules = await getTeacherSchedule(teacherId);
+        let listDayOfNextWeek = getDayOfNextWeek();
         let listDay = [
-            { dayName: 'MON', listStartTime: timeOfDay('MON', schedules) },
-            { dayName: 'TUE', listStartTime: timeOfDay('TUE', schedules) },
-            { dayName: 'WED', listStartTime: timeOfDay('WED', schedules) },
-            { dayName: 'THU', listStartTime: timeOfDay('THU', schedules) },
-            { dayName: 'FRI', listStartTime: timeOfDay('FRI', schedules) },
-            { dayName: 'SAT', listStartTime: timeOfDay('SAT', schedules) },
-            { dayName: 'SUN', listStartTime: timeOfDay('SUN', schedules) }
+            { ...listDayOfNextWeek[0], listStartTime: timeOfDay('MON', schedules) },
+            { ...listDayOfNextWeek[1], listStartTime: timeOfDay('TUE', schedules) },
+            { ...listDayOfNextWeek[2], listStartTime: timeOfDay('WED', schedules) },
+            { ...listDayOfNextWeek[3], listStartTime: timeOfDay('THU', schedules) },
+            { ...listDayOfNextWeek[4], listStartTime: timeOfDay('FRI', schedules) },
+            { ...listDayOfNextWeek[5], listStartTime: timeOfDay('SAT', schedules) },
+            { ...listDayOfNextWeek[6], listStartTime: timeOfDay('SUN', schedules) }
         ]
         const result = resData(listDay, 0, 'Get schedules successfully');
         res.json(result);

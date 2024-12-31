@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import { searchTeachers } from '../../services/apiStudent';
 
 
@@ -8,7 +7,7 @@ const SearchTeacher = (props) => {
     const [name, setName] = useState('');
     const fetchDataSearchedTeachers = async () => {
         const res = await searchTeachers(name);
-        let newListTeacher = listTeacher.filter((teacher) => {
+        let newListTeacher = listTeacher?.filter((teacher) => {
             return res.data.teachers.findIndex((element) => element.id === teacher.id) != -1
         });
         console.log(newListTeacher);

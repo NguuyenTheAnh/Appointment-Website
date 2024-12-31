@@ -18,8 +18,8 @@ const Department = (props) => {
     // fetch filtered teacher
     const fetchDataListFilteredTeacher = async (departmentId, pageCurr) => {
         const res = await filterTeachers(departmentId, pageCurr);
-        setListTeacher(res.data.teachers);
-        let totalPages = res.data.pageInfo.totalPages;
+        setListTeacher(res.data?.teachers);
+        let totalPages = res.data?.pageInfo?.totalPages;
         let listPages = [];
         for (let i = 1; i <= totalPages; i++) listPages.push(i);
         setPages(listPages);
@@ -28,8 +28,8 @@ const Department = (props) => {
     // fetch all teachers
     const fetchDataListTeacher = async (pageCurr) => {
         const res = await getAllTeachers(pageCurr);
-        setListTeacher(res.data.teachers);
-        let totalPages = res.data.pageInfo.totalPages;
+        setListTeacher(res.data?.teachers);
+        let totalPages = res.data?.pageInfo?.totalPages;
         let listPages = [];
         for (let i = 1; i <= totalPages; i++) listPages.push(i);
         setPages(listPages);

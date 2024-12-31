@@ -28,7 +28,7 @@ const TeacherInfo = () => {
             </div>
             <div className='schedule'>
                 {teacherInfo &&
-                    <Schedule teacherId={teacherInfo.id} />
+                    <Schedule teacherId={teacherInfo.id} teacherInfo={teacherInfo} />
                 }
             </div>
         </div>

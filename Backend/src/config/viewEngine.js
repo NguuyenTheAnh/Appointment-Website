@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const configViewEngine = (app) => {
     //config static files
@@ -23,5 +24,7 @@ const configViewEngine = (app) => {
         credentials: true // You need to website to include cookies in the req sent
     }));
 
+    //config cookie parser
+    app.use(cookieParser());
 }
 export { configViewEngine }

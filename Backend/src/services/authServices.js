@@ -1,6 +1,8 @@
 import { db } from '../config/database.js';
 import bcrypt from 'bcryptjs';
-
+import { createJWT } from '../middleware/jwtAction.js';
+import env from 'dotenv';
+env.config();
 const salt = bcrypt.genSaltSync(10);
 const hashUserPassword = (userPassword) => {
     let hashPassword = bcrypt.hashSync(userPassword, salt);
@@ -53,8 +55,10 @@ const login = async (userData) => {
         };
     }
     const { rows } = await db.query(
-        `SELECT password
+        `SELECT users.id, username, email, password, name, phone, address, image, department_name, role_name
          FROM users
+         JOIN roles ON roles.id = users.role_id
+         LEFT JOIN department ON department.id = users.department_id
          WHERE email=$1`,
         [userData.email]
     );
@@ -69,13 +73,31 @@ const login = async (userData) => {
         };
     }
 
-    //json
+    //login
+    let payload = {
+        email: userData.email,
+        role_name: rows[0].role_name,
+        expiresIn: process.env.JWT_EXPIRES_IN,
+    }
+    let token = createJWT(payload);
     return {
-        data: userData,
+        data: {
+            access_token: token,
+            role: rows[0].role_name,
+            username: rows[0].username,
+            email: rows[0].email,
+            name: rows[0].name,
+            phone: rows[0].phone,
+            address: rows[0].address,
+            department_name: rows[0].department_name,
+            role_name: rows[0].role_name,
+            image: rows[0].image
+        },
         errorCount: 0,
         message: 'Login successfully'
     };
 }
+
 export {
     register,
     login,

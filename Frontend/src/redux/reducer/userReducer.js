@@ -1,17 +1,15 @@
-import { INCREMENT, DECREMENT } from '../action/counterAction';
-import { FETCH_USER_LOGIN_SUCCESS } from '../action/userAction';
+import { FETCH_USER_LOGIN_SUCCESS, FETCH_USER_LOGOUT_SUCCESS } from '../action/userAction';
 
 const INITIAL_STATE = {
     account: {
         access_token: '',
-        refresh_token: '',
         username: '',
         email: '',
         name: '',
         phone: '',
         address: '',
-        department: '',
-        role: '',
+        department_name: '',
+        role_name: '',
         image: ''
     },
     isAuthenticated: false
@@ -19,27 +17,23 @@ const INITIAL_STATE = {
 const userReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case FETCH_USER_LOGIN_SUCCESS:
-            console.log('check acitons:', action)
             return {
                 ...state, account: {
                     access_token: action?.payload?.data?.access_token,
-                    refresh_token: action?.payload?.data?.refresh_token,
                     username: action?.payload?.data?.username,
                     email: action?.payload?.data?.email,
                     name: action?.payload?.data?.name,
                     phone: action?.payload?.data?.phone,
                     address: action?.payload?.data?.address,
-                    department: action?.payload?.data?.department,
-                    role: action?.payload?.data?.role,
+                    department_name: action?.payload?.data?.department_name,
+                    role_name: action?.payload?.data?.role_name,
                     image: action?.payload?.data?.image
                 },
                 isAuthenticated: true
             };
-
-        case DECREMENT:
-            return {
-                ...state, count: state.count - 1,
-            };
+        case FETCH_USER_LOGOUT_SUCCESS:
+            state = INITIAL_STATE;
+            return state;
         default: return state;
     }
 };

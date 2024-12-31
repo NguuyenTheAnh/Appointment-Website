@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import StudentAppointment from './StudentAppointment';
+import TeacherAppointment from './TeacherAppointment';
+import './Appointment.scss';
 
 const Appointment = () => {
+    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+    const account = useSelector((state) => state.user.account);
+    const dispatch = useDispatch();
+
     return (
-        <div>
-            appointment content
-        </div>
+        <>
+            {
+                account.role_name == "Teacher"
+                    ?
+                    <TeacherAppointment accountTeacher={account} />
+                    :
+                    <StudentAppointment accountStudent={account} />
+            }
+        </>
     );
 };
 

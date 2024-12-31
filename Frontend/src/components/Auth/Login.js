@@ -51,6 +51,12 @@ const Login = () => {
     const handleClickSignup = () => {
         navigate('/signup');
     }
+    const handlePressEnter = (event) => {
+        if (event.code == "Enter") {
+            handleClickLogin();
+        }
+    }
+
     return (
         <div className='login'>
             <div className='header'>
@@ -82,6 +88,7 @@ const Login = () => {
                             value={password}
                             className={objCheckInputs.isValidPassword ? '' : 'form-control is-invalid'}
                             onChange={(event) => setPassword(event.target.value)}
+                            onKeyDown={(event) => handlePressEnter(event)}
                         />
                     </div>
                     <Button

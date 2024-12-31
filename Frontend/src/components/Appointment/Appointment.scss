@@ -1,0 +1,257 @@
+.appointment-teacher {
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-template-rows: 100vh;
+
+    .appointment-sidebar {
+        padding-top: 50px;
+        grid-column: 1/2;
+        grid-row: 1/2;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 120px auto;
+        border-right: solid 1px rgb(226, 226, 226);
+        ;
+
+        .header {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+            border-bottom: solid 1px rgb(226, 226, 226);
+
+            span {
+                color: #7e7eff;
+                font-weight: 500;
+                font-size: 40px;
+            }
+        }
+
+        .content {
+            .selection {
+                padding-left: 15px;
+                display: flex;
+                align-items: center;
+                height: 80px;
+                margin-bottom: 50px;
+                cursor: pointer;
+
+                p {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    margin: 0;
+                    padding-left: 15px;
+                    font-size: 22px;
+                    font-weight: 490;
+                }
+
+                &:hover {
+                    background-color: #f8f8ff;
+
+                }
+
+                &.active {
+                    background-color: #e0e0ff;
+                    border-right: solid 5px #7e7eff;
+                }
+            }
+        }
+    }
+
+    .appointment-content-schedule {
+        grid-column: 2/3;
+        grid-row: 1/2;
+        padding: 40px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 75px auto;
+
+        .appointment-header {
+            grid-column: 1/2;
+            grid-row: 1/2;
+
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+
+            font-weight: 500;
+            font-size: large;
+        }
+
+        .appointment-body {
+            grid-column: 1/2;
+            grid-row: 2/3;
+
+            .schedule {
+                display: grid;
+                grid-template-columns: 3fr 2fr;
+                grid-template-rows: 1fr;
+                gap: 25px;
+                height: 500px;
+                border-radius: 20px;
+                padding: 15px;
+
+                .calendar {
+                    background-color: white;
+                    border-radius: 20px 0px 0px 20px;
+                    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 100px auto;
+
+                    .calendar-title {
+                        background-color: #bfbfff;
+                        border-radius: 20px 0px 0px 0px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        span {
+                            color: white;
+                            font-size: 40px;
+                            font-weight: 500;
+                        }
+                    }
+
+                    .calendar-content {
+                        padding: 15px;
+                        display: grid;
+                        grid-template-columns: repeat(4, 1fr);
+                        grid-template-rows: repeat(3, 1fr);
+                        gap: 10px;
+
+                        .day {
+                            background-color: #f8f8ff;
+                            display: grid;
+                            grid-template-columns: 1fr;
+                            grid-template-rows: 1fr 3fr;
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: #e8e8ff;
+                            }
+
+                            &.active {
+                                background-color: #bbbbff;
+                                color: white;
+                            }
+
+                            span {
+                                grid-column: 1/2;
+                                grid-row: 1/2;
+                                font-size: 10px;
+                                font-weight: 500;
+                                padding: 8px 0px 0px 8px;
+                            }
+
+                            p {
+                                grid-column: 1/2;
+                                grid-row: 2/3;
+                                margin: 0;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                font-size: 40px;
+                            }
+
+                            &.MON {
+                                grid-column: 3/4;
+                                grid-row: 1/2;
+                            }
+
+                            &.TUE {
+                                grid-column: -2/-1;
+                                grid-row: 1/2;
+                            }
+
+                            &.WED {
+                                grid-column: 1/2;
+                                grid-row: 2/3;
+                            }
+
+                            &.THU {
+                                grid-column: 2/3;
+                                grid-row: 2/3;
+                            }
+
+                            &.FRI {
+                                grid-column: 3/4;
+                                grid-row: 2/3;
+                            }
+
+                            &.SAT {
+                                grid-column: 4/5;
+                                grid-row: 2/3;
+                            }
+
+                            &.SUN {
+                                grid-column: 1/2;
+                                grid-row: 3/4;
+                            }
+                        }
+                    }
+                }
+
+                .time {
+                    background-color: white;
+                    border-radius: 0px 20px 20px 0px;
+                    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    grid-template-rows: 100px auto;
+
+                    .time-title {
+                        background-color: #bfbfff;
+                        border-radius: 0px 20px 0px 0px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        span {
+                            color: white;
+                            font-size: 40px;
+                            font-weight: 500;
+                        }
+                    }
+
+                    .time-content {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        grid-template-rows: 5fr 1fr;
+
+                        .add-free-time {
+                            grid-column: 1/2;
+                            grid-row: 2/3;
+                            display: flex;
+                            justify-content: right;
+                            align-items: center;
+                            padding-right: 15px;
+                            border-top: solid 1px rgb(226, 226, 226);
+
+                            .btn {
+                                background-color: #7e7eff !important;
+                                border: 0;
+                            }
+                        }
+
+                        .list-free-time {
+                            grid-column: 1/2;
+                            grid-row: 1/2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.appointment-student {
+    .appointment-sidebar {}
+
+    .appointment-content {
+        .appointment-header {}
+
+        .appointment-body {}
+    }
+}

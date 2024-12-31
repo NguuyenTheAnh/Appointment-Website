@@ -45,6 +45,11 @@ const login = async (email, password) => {
     return result;
 }
 
+const logout = async () => {
+    const result = await axios.post(`api/logout`);
+    return result;
+}
+
 export {
     getAllTeachers,
     filterTeachers,
@@ -53,4 +58,5 @@ export {
     getTeacherSchedule,
     signup,
     login,
+    logout,
 }

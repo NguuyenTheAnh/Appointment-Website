@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Route,
-    Routes
+    Routes,
+    useNavigate
 } from 'react-router-dom';
 import App from './App';
 import HomePage from './components/Home/HomePage';
@@ -11,9 +12,18 @@ import TeacherInfo from './components/TeacherInfo/TeacherInfo';
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup'; import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { setNavigate } from './services/navigateService';
 
 
 const RouteApp = () => {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setNavigate(navigate);
+    }, [navigate]);
+
+
     return (
         <>
             <Routes>
