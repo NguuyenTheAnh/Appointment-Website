@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import StudentAppointment from './StudentAppointment';
-import TeacherAppointment from './TeacherAppointment';
+import StudentAppointment from './StudentAppointment/StudentAppointment';
+import TeacherAppointment from './TeacherAppointment/TeacherAppointment';
 import './Appointment.scss';
 
 const Appointment = () => {

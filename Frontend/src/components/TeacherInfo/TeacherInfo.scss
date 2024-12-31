@@ -140,6 +140,45 @@
                 font-weight: 500;
             }
         }
+
+        .time-curr {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+
+            .time-curr-title {
+                font-weight: 500;
+                margin-right: 8px;
+            }
+        }
+
+        .time-update {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+
+            .time-update-title {
+                font-weight: 500;
+                margin-right: 8px;
+            }
+
+            .time-update-content {
+                input {
+                    border: 0;
+                    width: 35px;
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+
+                span {
+                    margin-right: 5px;
+                }
+            }
+
+
+        }
     }
 
     .modal-footer {

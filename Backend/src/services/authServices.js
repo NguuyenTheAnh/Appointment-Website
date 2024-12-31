@@ -83,6 +83,7 @@ const login = async (userData) => {
     return {
         data: {
             access_token: token,
+            id: rows[0].id,
             role: rows[0].role_name,
             username: rows[0].username,
             email: rows[0].email,

@@ -3,6 +3,7 @@ import { FETCH_USER_LOGIN_SUCCESS, FETCH_USER_LOGOUT_SUCCESS } from '../action/u
 const INITIAL_STATE = {
     account: {
         access_token: '',
+        id: '',
         username: '',
         email: '',
         name: '',
@@ -20,6 +21,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state, account: {
                     access_token: action?.payload?.data?.access_token,
+                    id: action?.payload?.data?.id,
                     username: action?.payload?.data?.username,
                     email: action?.payload?.data?.email,
                     name: action?.payload?.data?.name,

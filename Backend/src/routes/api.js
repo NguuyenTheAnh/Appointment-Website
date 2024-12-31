@@ -20,7 +20,7 @@ router.get("/api/searchTeachers", checkUserJWT, checkUserPermission, apiSearchTe
 // >>> 2
 // render teacher's schedules, info
 router.get("/api/teacherInfo/:teacherId", checkUserJWT, checkUserPermission, apiGetTeacherInfo); // get teacher info when had teacher'id
-router.get("/api/teacherSchedule/:teacherId", checkUserJWT, checkUserPermission, apiGetTeacherSchedule); // get teacher's schedule
+router.get("/api/teacherSchedule/:teacherId", checkUserJWT, apiGetTeacherSchedule); // get teacher's schedule
 
 // >>> 3
 // authentication
