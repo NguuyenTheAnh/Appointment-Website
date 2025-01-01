@@ -4,7 +4,9 @@ import {
     apiFilterTeachers,
     apiSearchTeachers,
     apiGetTeacherInfo,
-    apiGetTeacherSchedule
+    apiGetTeacherSchedule,
+    apiBooking,
+    apiUpdateProfile
 } from '../controllers/studentController.js';
 import { apiLogin, apiLogout, apiSignup } from '../controllers/authController.js';
 import { checkUserJWT, checkUserPermission } from '../middleware/jwtAction.js';
@@ -21,6 +23,10 @@ router.get("/api/searchTeachers", checkUserJWT, checkUserPermission, apiSearchTe
 // render teacher's schedules, info
 router.get("/api/teacherInfo/:teacherId", checkUserJWT, checkUserPermission, apiGetTeacherInfo); // get teacher info when had teacher'id
 router.get("/api/teacherSchedule/:teacherId", checkUserJWT, apiGetTeacherSchedule); // get teacher's schedule
+// make a appointment
+router.post("/api/booking", checkUserJWT, checkUserPermission, apiBooking);
+// update profile
+router.post("/api/updateProfile", checkUserJWT, apiUpdateProfile);
 
 // >>> 3
 // authentication

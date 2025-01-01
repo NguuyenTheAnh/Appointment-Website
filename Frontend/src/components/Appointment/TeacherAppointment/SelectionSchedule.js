@@ -20,6 +20,9 @@ const SelectionSchedule = () => {
     const [nextWeek, setNextWeek] = useState();
 
     //update schedule
+    const [updateHour, setUpdateHour] = useState('');
+    const [updateMinute, setUpdateMinute] = useState('');
+    const [updateSecond, setUpdateSecond] = useState('');
 
     //modal add free time
     const [showAdd, setShowAdd] = useState(false);
@@ -28,9 +31,13 @@ const SelectionSchedule = () => {
 
     //modal update
     const [showUpdate, setShowUpdate] = useState(false);
-
     const handleCloseUpdate = () => setShowUpdate(false);
     const handleShowUpdate = () => setShowUpdate(true);
+
+    //modal delete
+    const [showDelete, setShowDelete] = useState(false);
+    const handleCloseDelete = () => setShowDelete(false);
+    const handleShowDelete = () => setShowDelete(true);
 
     const fetchDataSchedule = async () => {
         const data = await getTeacherSchedule(account.id);
@@ -171,12 +178,24 @@ const SelectionSchedule = () => {
                                                 >
                                                     Update
                                                 </Button>
-                                                <Button variant="primary" className={time ? 'btn-update-delete can-press' : 'btn-update-delete'}>
+                                                <Button variant="primary"
+                                                    className={time ? 'btn-update-delete can-press' : 'btn-update-delete'}
+                                                    onClick={() => {
+                                                        if (time) handleShowDelete();
+                                                    }}
+                                                >
                                                     Delete
                                                 </Button>
 
                                                 {/* modal add free time */}
-                                                <Modal show={showAdd} onHide={handleCloseAdd}>
+                                                <Modal show={showAdd}
+                                                    onHide={() => {
+                                                        handleCloseAdd();
+                                                        setNewHour('');
+                                                        setNewMinute('');
+                                                        setNewSecond('');
+                                                    }}
+                                                >
                                                     <Modal.Header closeButton>
                                                         <Modal.Title>Free time information</Modal.Title>
                                                     </Modal.Header>
@@ -237,7 +256,14 @@ const SelectionSchedule = () => {
                                                 </Modal>
 
                                                 {/* modal update free time */}
-                                                <Modal show={showUpdate} onHide={handleCloseUpdate}>
+                                                <Modal show={showUpdate}
+                                                    onHide={() => {
+                                                        handleCloseUpdate();
+                                                        setUpdateHour('');
+                                                        setUpdateMinute('');
+                                                        setUpdateSecond('');
+                                                    }}
+                                                >
                                                     <Modal.Header closeButton>
                                                         <Modal.Title>Update time</Modal.Title>
                                                     </Modal.Header>
@@ -249,21 +275,62 @@ const SelectionSchedule = () => {
                                                         <div className='time-update'>
                                                             <span className='time-update-title'>Update time</span>
                                                             <div className='time-update-content'>
-                                                                <input type='text' placeholder='HH' autoFocus /><span>:</span><input type='text' placeholder='MM' /><span>:</span><input type='text' placeholder='SS' />
+                                                                <input type='text' placeholder='HH' autoFocus
+                                                                    value={updateHour}
+                                                                    onChange={(event) => setUpdateHour(event.target.value)}
+                                                                />
+                                                                <span>:</span>
+                                                                <input type='text' placeholder='MM'
+                                                                    value={updateMinute}
+                                                                    onChange={(event) => setUpdateMinute(event.target.value)}
+                                                                />
+                                                                <span>:</span>
+                                                                <input type='text' placeholder='SS'
+                                                                    value={updateSecond}
+                                                                    onChange={(event) => setUpdateSecond(event.target.value)}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </Modal.Body>
                                                     <Modal.Footer>
-                                                        <Button variant="secondary" onClick={handleCloseUpdate}>
+                                                        <Button variant="secondary"
+                                                            onClick={() => {
+                                                                handleCloseUpdate();
+                                                                setUpdateHour('');
+                                                                setUpdateMinute('');
+                                                                setUpdateSecond('');
+                                                            }}
+                                                        >
                                                             Close
                                                         </Button>
-                                                        <Button variant="primary" onClick={handleCloseUpdate}>
+                                                        <Button variant="primary"
+                                                            onClick={() => {
+                                                                handleCloseUpdate();
+                                                                setUpdateHour('');
+                                                                setUpdateMinute('');
+                                                                setUpdateSecond('');
+                                                            }}
+                                                        >
                                                             Save Changes
                                                         </Button>
                                                     </Modal.Footer>
                                                 </Modal>
 
                                                 {/* modal delete free time */}
+                                                <Modal show={showDelete} onHide={handleCloseDelete}>
+                                                    <Modal.Header className='delete-time-title' closeButton>
+                                                        <Modal.Title >Delete time</Modal.Title>
+                                                    </Modal.Header>
+                                                    <Modal.Body>Are you sure?</Modal.Body>
+                                                    <Modal.Footer>
+                                                        <Button variant="secondary" onClick={handleCloseDelete}>
+                                                            Cancel
+                                                        </Button>
+                                                        <Button variant="primary" onClick={handleCloseDelete}>
+                                                            Delete
+                                                        </Button>
+                                                    </Modal.Footer>
+                                                </Modal>
                                             </>
                                         </div>
                                     </>

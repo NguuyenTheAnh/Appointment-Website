@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import { createJWT } from '../middleware/jwtAction.js';
 import env from 'dotenv';
 env.config();
+const port = process.env.PORT || 8888;
 const salt = bcrypt.genSaltSync(10);
 const hashUserPassword = (userPassword) => {
     let hashPassword = bcrypt.hashSync(userPassword, salt);
@@ -75,6 +76,7 @@ const login = async (userData) => {
 
     //login
     let payload = {
+        id: rows[0].id,
         email: userData.email,
         role_name: rows[0].role_name,
         expiresIn: process.env.JWT_EXPIRES_IN,
@@ -92,7 +94,7 @@ const login = async (userData) => {
             address: rows[0].address,
             department_name: rows[0].department_name,
             role_name: rows[0].role_name,
-            image: rows[0].image
+            image: `http://localhost:${port}/images/${rows[0].image}`
         },
         errorCount: 0,
         message: 'Login successfully'

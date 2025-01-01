@@ -120,6 +120,10 @@
 .modal-content {
     .modal-header {
         color: #7e7eff;
+
+        &.delete-time-title {
+            color: red;
+        }
     }
 
     .modal-body {

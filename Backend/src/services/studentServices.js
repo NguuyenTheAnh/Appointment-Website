@@ -70,10 +70,60 @@ const getTeacherSchedule = async (teacherId) => {
     return rows;
 }
 
+const booking = async (studentId, teacherId, time, date, note) => {
+    const searchScheduleId = await db.query(
+        `SELECT id 
+         FROM schedules
+         WHERE teacher_id = $1 AND start_time = $2 AND date_next_week = $3`,
+        [teacherId, time, date]
+    );
+    const scheduleId = searchScheduleId.rows[0].id;
+    const { rows } = await db.query(
+        `INSERT INTO appointments(student_id,schedule_id, status, note_student)
+         VALUES ($1,$2,$3,$4)
+         RETURNING *`,
+        [studentId, scheduleId, 'Pending', note]
+    );
+    return rows[0];
+}
+
+const updateProfile = async (userId, profileData) => {
+    const { username, email, name, phone, departmentName, address } = profileData;
+    if (departmentName) {
+        const searchDepartmentId = await db.query(
+            `SELECT id
+             FROM department
+             WHERE department_name = $1`,
+            [departmentName]
+        );
+        let departmentId = searchDepartmentId.rows[0].id;
+        const { rows } = await db.query(
+            `UPDATE users
+             SET username = $1, email = $2, name = $3, phone = $4, department_id = $5, address = $6
+             WHERE users.id = $7
+             RETURNING *`,
+            [username, email, name, phone, departmentId, address, userId]
+        );
+        return rows[0];
+    }
+    else {
+        const { rows } = await db.query(
+            `UPDATE users
+         SET username = $1, email = $2, name = $3, phone = $4, address = $5
+         WHERE users.id = $6
+         RETURNING *`,
+            [username, email, name, phone, address, userId]
+        );
+        return rows[0];
+    }
+}
+
 export {
     getAllTeachers,
     filterTeachers,
     searchTeachers,
     getTeacherInfo,
-    getTeacherSchedule
+    getTeacherSchedule,
+    booking,
+    updateProfile,
 };

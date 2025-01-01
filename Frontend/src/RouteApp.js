@@ -13,6 +13,7 @@ import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup'; import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { setNavigate } from './services/navigateService';
+import Profile from './components/Profile/Profile';
 
 
 const RouteApp = () => {
@@ -32,6 +33,7 @@ const RouteApp = () => {
                     <Route path='booking' element={<Booking />} />
                     <Route path='appointment' element={<Appointment />} />
                     <Route path='teacherInfo/:teacherId' element={<TeacherInfo />} />
+                    <Route path='profile' element={<Profile />} />
                 </Route>
                 <Route path='/login' element={<Login />} />
                 <Route path='/signup' element={<Signup />} />

@@ -3,7 +3,9 @@ import {
     getAllTeachers,
     searchTeachers,
     getTeacherInfo,
-    getTeacherSchedule
+    getTeacherSchedule,
+    booking,
+    updateProfile
 } from '../services/studentServices.js';
 import resData from '../helpers/jsonFormat.js';
 import pagination from '../helpers/pagination.js';
@@ -157,10 +159,35 @@ const apiGetTeacherSchedule = async (req, res) => {
         res.status(500).json(resData('', 1, 'Server error'));
     }
 }
+const apiBooking = async (req, res) => {
+    try {
+        const { teacherId, time, date, note } = req.body;
+        let data = await booking(req.user.id, teacherId, time, date, note);
+        const result = resData(data, 0, 'Make a appointment successfully');
+        res.json(result);
+    } catch (error) {
+        console.log('Error getting: ', error);
+        res.status(500).json(resData('', 1, 'Server error'));
+    }
+}
+
+const apiUpdateProfile = async (req, res) => {
+    try {
+        let data = await updateProfile(req.user.id, req.body);
+        const result = resData(data, 0, 'Make a appointment successfully');
+        res.json(result);
+    } catch (error) {
+        console.log('Error getting: ', error);
+        res.status(500).json(resData('', 1, 'Server error'));
+    }
+}
+
 export {
     apiGetAllTeachers,
     apiFilterTeachers,
     apiSearchTeachers,
     apiGetTeacherInfo,
-    apiGetTeacherSchedule
+    apiGetTeacherSchedule,
+    apiBooking,
+    apiUpdateProfile,
 }
