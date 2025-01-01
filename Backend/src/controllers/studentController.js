@@ -5,7 +5,10 @@ import {
     getTeacherInfo,
     getTeacherSchedule,
     booking,
-    updateProfile
+    updateProfile,
+    getStudentAppointmentsPending,
+    getStudentAppointmentsAccepted,
+    getStudentAppointmentsDeclined
 } from '../services/studentServices.js';
 import resData from '../helpers/jsonFormat.js';
 import pagination from '../helpers/pagination.js';
@@ -109,19 +112,23 @@ const getDayOfNextWeek = () => {
     // Get days from MON to SUN with full date
     const weekDays = [];
     for (let i = 0; i < 7; i++) {
-        const day = new Date(nextMonday);
-        day.setDate(nextMonday.getDate() + i);
+        const day = new Date(nextMonday.getTime()); // Clone nextMonday
+        day.setDate(nextMonday.getDate() + i); // Cộng thêm i ngày
 
-        // Format date as YYYY-MM-DD
-        const formattedDate = day.toISOString().split("T")[0];
+        // Format date as YYYY-MM-DD in local timezone
+        const year = day.getFullYear();
+        const month = String(day.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+        const date = String(day.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${date}`;
 
         weekDays.push({
             dayName: daysOfWeek[i], // Day name
-            date: formattedDate // Full date in YYYY-MM-DD
+            date: formattedDate // Full date in YYYY-MM-DD (local timezone)
         });
     }
     return weekDays;
 };
+
 
 // func search time of day
 const timeOfDay = (day, schedules) => {
@@ -174,7 +181,49 @@ const apiBooking = async (req, res) => {
 const apiUpdateProfile = async (req, res) => {
     try {
         let data = await updateProfile(req.user.id, req.body);
-        const result = resData(data, 0, 'Make a appointment successfully');
+        const result = resData(data, 0, 'Update profile successfully');
+        res.json(result);
+    } catch (error) {
+        console.log('Error getting: ', error);
+        res.status(500).json(resData('', 1, 'Server error'));
+    }
+}
+
+const apiGetStudentAppointmentsPending = async (req, res) => {
+    try {
+        let data = await getStudentAppointmentsPending(req.user.id);
+        data = data.map((element) => {
+            return { ...element, image: `http://localhost:${port}/images/${element.image}` }
+        })
+        const result = resData(data, 0, 'Get appointments successfully');
+        res.json(result);
+    } catch (error) {
+        console.log('Error getting: ', error);
+        res.status(500).json(resData('', 1, 'Server error'));
+    }
+}
+
+const apiGetStudentAppointmentsAccepted = async (req, res) => {
+    try {
+        let data = await getStudentAppointmentsAccepted(req.user.id);
+        data = data.map((element) => {
+            return { ...element, image: `http://localhost:${port}/images/${element.image}` }
+        })
+        const result = resData(data, 0, 'Get appointments successfully');
+        res.json(result);
+    } catch (error) {
+        console.log('Error getting: ', error);
+        res.status(500).json(resData('', 1, 'Server error'));
+    }
+}
+
+const apiGetStudentAppointmentsDeclined = async (req, res) => {
+    try {
+        let data = await getStudentAppointmentsDeclined(req.user.id);
+        data = data.map((element) => {
+            return { ...element, image: `http://localhost:${port}/images/${element.image}` }
+        })
+        const result = resData(data, 0, 'Get appointments successfully');
         res.json(result);
     } catch (error) {
         console.log('Error getting: ', error);
@@ -190,4 +239,7 @@ export {
     apiGetTeacherSchedule,
     apiBooking,
     apiUpdateProfile,
+    apiGetStudentAppointmentsPending,
+    apiGetStudentAppointmentsAccepted,
+    apiGetStudentAppointmentsDeclined,
 }

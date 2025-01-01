@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import { getTeacherSchedule } from '../../services/apiStudent';
+import { bookSchedule, getTeacherSchedule } from '../../services/apiStudent';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { toast } from 'react-toastify';
@@ -55,6 +55,13 @@ const Schedule = (props) => {
     const handleClickTime = async (index) => {
         setBookTime(listTime[index]);
     }
+
+    const handleClickBookSchedule = async () => {
+        handleClose();
+        const { data } = await bookSchedule(teacherId, bookTime, bookDate, bookNote);
+        if (data.errorCount == 0) toast.success(data.message);
+    }
+
     return (
         <div className='schedule-nextWeek'>
             <h4 className='header'>Booking Slots</h4>
@@ -120,7 +127,7 @@ const Schedule = (props) => {
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleClose}>
+                    <Button variant="primary" onClick={() => handleClickBookSchedule()}>
                         Book schedule
                     </Button>
                 </Modal.Footer>

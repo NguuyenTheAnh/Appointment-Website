@@ -6,10 +6,14 @@ import {
     apiGetTeacherInfo,
     apiGetTeacherSchedule,
     apiBooking,
-    apiUpdateProfile
+    apiUpdateProfile,
+    apiGetStudentAppointmentsPending,
+    apiGetStudentAppointmentsAccepted,
+    apiGetStudentAppointmentsDeclined
 } from '../controllers/studentController.js';
 import { apiLogin, apiLogout, apiSignup } from '../controllers/authController.js';
 import { checkUserJWT, checkUserPermission } from '../middleware/jwtAction.js';
+import { apiDeleteTeacherSchedules, apiUpdateTeacherSchedules } from '../controllers/teacherController.js';
 
 const router = express.Router();
 
@@ -27,6 +31,11 @@ router.get("/api/teacherSchedule/:teacherId", checkUserJWT, apiGetTeacherSchedul
 router.post("/api/booking", checkUserJWT, checkUserPermission, apiBooking);
 // update profile
 router.post("/api/updateProfile", checkUserJWT, apiUpdateProfile);
+// get student's appointment
+router.get("/api/getStudentAppointmentsPending", checkUserJWT, apiGetStudentAppointmentsPending);
+router.get("/api/getStudentAppointmentsAccepted", checkUserJWT, apiGetStudentAppointmentsAccepted);
+router.get("/api/getStudentAppointmentsDeclined", checkUserJWT, apiGetStudentAppointmentsDeclined);
+
 
 // >>> 3
 // authentication
@@ -35,6 +44,8 @@ router.post("/api/login", apiLogin) //login
 router.post("/api/logout", apiLogout) //logout
 
 // teacher
+router.post("/api/updateTeacherSchedules", checkUserJWT, apiUpdateTeacherSchedules);
+router.post("/api/deleteTeacherSchedules", checkUserJWT, apiDeleteTeacherSchedules);
 
 // >>> 1
 // schedules

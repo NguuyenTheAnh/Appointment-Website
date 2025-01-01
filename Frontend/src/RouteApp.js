@@ -39,7 +39,7 @@ const RouteApp = () => {
                 <Route path='/signup' element={<Signup />} />
             </Routes>
             <ToastContainer
-                position="top-right"
+                position="top-center"
                 autoClose={1500}
                 hideProgressBar={false}
                 newestOnTop={false}

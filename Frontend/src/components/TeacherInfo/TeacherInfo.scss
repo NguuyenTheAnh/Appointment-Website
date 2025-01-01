@@ -127,6 +127,31 @@
     }
 
     .modal-body {
+        .point-detail {
+            font-weight: 500;
+        }
+
+        .pending {
+            .status {
+                font-size: 18px;
+                color: rgb(234, 234, 0);
+            }
+        }
+
+        .accepted {
+            .status {
+                font-size: 18px;
+                color: rgb(131, 219, 0);
+            }
+        }
+
+        .declined {
+            .status {
+                font-size: 18px;
+                color: rgb(221, 0, 0);
+            }
+        }
+
         .schedule-info {
             .form-label {
                 font-weight: 500;

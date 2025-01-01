@@ -17,7 +17,8 @@ const getAllTeachers = async () => {
          FROM users
          JOIN department ON department.id=users.department_id
          JOIN roles ON roles.id=users.role_id
-         WHERE role_id=2;`
+         WHERE role_id=2
+         ORDER BY users.id ASC;`
     );
     return rows;
 }
@@ -28,7 +29,8 @@ const filterTeachers = async (department_id) => {
          JOIN department ON department.id=users.department_id
          JOIN roles ON roles.id=users.role_id
          WHERE role_id=2
-         AND department_id=$1;`,
+         AND department_id=$1
+         ORDER BY users.id ASC;`,
         [department_id]
     );
     return rows;
@@ -39,7 +41,8 @@ const searchTeachers = async (teacherName) => {
          FROM users
          JOIN department ON department.id=users.department_id
          JOIN roles ON roles.id=users.role_id
-         WHERE role_id=2;`
+         WHERE role_id=2
+         ORDER BY users.id ASC;`
     );
     const result = rows.filter((teacher) => {
         let name = removeVietnameseAccents(teacher.name);
@@ -118,6 +121,46 @@ const updateProfile = async (userId, profileData) => {
     }
 }
 
+const getStudentAppointmentsPending = async (userId) => {
+    let { rows } = await db.query(
+        `select appointments.id as appointment_id , status , note_student , note_teacher ,day, start_time, date_next_week as date, teacher_id, name, email, phone, image, department_name
+         from appointments
+         join schedules on schedules.id = appointments.schedule_id
+         join users on users.id =  schedules.teacher_id 
+         join department on department.id= users.department_id
+         where student_id = $1 and status = 'Pending'
+         order by date_next_week desc;`,
+        [userId]
+    );
+    return rows;
+}
+
+const getStudentAppointmentsAccepted = async (userId) => {
+    let { rows } = await db.query(
+        `select appointments.id as appointment_id , status , note_student , note_teacher ,day, start_time, date_next_week as date, teacher_id, name, email, phone, image
+         from appointments
+         join schedules on schedules.id = appointments.schedule_id
+         join users on users.id =  schedules.teacher_id 
+         where student_id = $1 and status = 'Accepted'
+         order by date_next_week desc;`,
+        [userId]
+    );
+    return rows;
+}
+
+const getStudentAppointmentsDeclined = async (userId) => {
+    let { rows } = await db.query(
+        `select appointments.id as appointment_id , status , note_student , note_teacher ,day, start_time, date_next_week as date, teacher_id, name, email, phone, image
+         from appointments
+         join schedules on schedules.id = appointments.schedule_id
+         join users on users.id =  schedules.teacher_id 
+         where student_id = $1 and status = 'Declined'
+         order by date_next_week desc;`,
+        [userId]
+    );
+    return rows;
+}
+
 export {
     getAllTeachers,
     filterTeachers,
@@ -126,4 +169,7 @@ export {
     getTeacherSchedule,
     booking,
     updateProfile,
+    getStudentAppointmentsPending,
+    getStudentAppointmentsAccepted,
+    getStudentAppointmentsDeclined,
 };

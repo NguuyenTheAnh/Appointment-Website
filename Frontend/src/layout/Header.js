@@ -23,12 +23,12 @@ const Header = () => {
         navigate('/signup');
     }
     const handleClickLogout = async () => {
+        navigate('/');
         // call api log out
         const { data } = await logout();
         if (data.errorCount == 0) {
             dispatch(doLogout());
             toast.success(data.message);
-            navigate('/');
         }
         else toast.error(data.message);
     }

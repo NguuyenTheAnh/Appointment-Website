@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import { updateProfile } from '../../services/apiStudent';
+import { toast } from 'react-toastify';
 
 
 const Profile = () => {
@@ -21,7 +23,17 @@ const Profile = () => {
 
     const [modify, setModify] = useState(false);
 
-
+    const handleClickSave = async () => {
+        setModify(false);
+        if (roleName == "Student") {
+            const { data } = await updateProfile(username, email, name, phone, '', address);
+            if (data.errorCount == 0) toast.success(data.message);
+        }
+        else {
+            const { data } = await updateProfile(username, email, name, phone, departmentName, address);
+            if (data.errorCount == 0) toast.success(data.message);
+        }
+    }
     return (
         <div className='profile'>
             <div className='profile-sidebar'>
@@ -121,7 +133,7 @@ const Profile = () => {
                     </div>
                     <div className='body-btn'>
                         <Button variant="light" onClick={() => setModify(true)}>Modify</Button>
-                        <Button variant="dark" onClick={() => setModify(false)}>Save</Button>
+                        <Button variant="dark" onClick={() => handleClickSave()}>Save</Button>
                     </div>
                 </div>
             </div>

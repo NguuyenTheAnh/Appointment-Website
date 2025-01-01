@@ -2,7 +2,8 @@
 .appointment-teacher {
     display: grid;
     grid-template-columns: 300px auto;
-    grid-template-rows: 100vh;
+    grid-template-rows: minmax(100vh, auto);
+    ;
 
     .appointment-sidebar {
         padding-top: 50px;
@@ -314,11 +315,183 @@
 
 // --- For Student --- //
 .appointment-student {
-    .appointment-sidebar {}
+    display: grid;
+    grid-template-columns: 300px auto;
+    grid-template-rows: minmax(125vh, auto);
+    ;
+
+    .appointment-sidebar {
+        padding-top: 50px;
+        grid-column: 1/2;
+        grid-row: 1/2;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 120px auto;
+        border-right: solid 1px rgb(226, 226, 226);
+
+        .header {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 10px;
+            margin-bottom: 50px;
+            border-bottom: solid 1px rgb(226, 226, 226);
+
+            span {
+                font-weight: 500;
+                font-size: 40px;
+            }
+        }
+
+        .content {
+            .selection {
+                padding-left: 15px;
+                display: flex;
+                align-items: center;
+                height: 80px;
+                margin-bottom: 50px;
+                cursor: pointer;
+
+                p {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    margin: 0;
+                    padding-left: 15px;
+                    font-size: 22px;
+                    font-weight: 490;
+                }
+
+                &:hover {
+                    background-color: #f8f8ff;
+
+                }
+
+                &.active {
+                    background-color: #e0e0ff;
+                    border-right: solid 5px #7e7eff;
+                }
+            }
+        }
+    }
 
     .appointment-content {
-        .appointment-header {}
+        grid-column: 2/3;
+        grid-row: 1/2;
+        padding-left: 80px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 180px auto;
+        height: fit-content;
 
-        .appointment-body {}
+        .appointment-header {
+            grid-column: 1/2;
+            grid-row: 1/2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            p {
+                font-weight: 500;
+                font-size: 35px;
+            }
+        }
+
+        .appointment-body {
+            grid-column: 1/2;
+            grid-row: 2/3;
+            margin-right: 80px;
+
+            .content {
+                border-radius: 20px;
+                box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+                display: flex;
+                flex-direction: column;
+                gap: 1px;
+                background-color: #e0e0e0;
+                margin-bottom: 30px;
+
+                .info {
+                    width: 100%;
+                    padding: 30px 0px 30px 30px;
+                    display: grid;
+                    grid-template-columns: 220px auto 120px;
+                    grid-template-rows: 1fr;
+                    background-color: white;
+
+                    .avt {
+                        grid-column: 1/2;
+                        grid-row: 1/2;
+
+                        img {
+                            border-radius: 10px;
+                            width: 100%;
+                            box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+                        }
+                    }
+
+                    .detail {
+                        grid-column: 2/3;
+                        grid-row: 1/2;
+                        padding-left: 40px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+
+                        .date-detail {
+                            display: flex;
+                            gap: 20px;
+                        }
+
+                        .teacher-name {
+                            font-weight: 500;
+                            font-size: 25px;
+                        }
+
+                        p {
+                            span {
+                                font-weight: 500;
+                            }
+                        }
+
+                        .pending {
+                            .status {
+                                font-weight: 500px;
+                                font-size: 18px;
+                                color: rgb(234, 234, 0);
+                            }
+                        }
+
+                        .accepted {
+                            .status {
+                                font-weight: 500px;
+                                font-size: 18px;
+                                color: rgb(131, 219, 0);
+                            }
+                        }
+
+                        .declined {
+                            .status {
+                                font-weight: 500px;
+                                font-size: 18px;
+                                color: rgb(221, 0, 0);
+                            }
+                        }
+                    }
+
+                    .info-button {
+                        grid-column: 3/4;
+                        grid-row: 1/2;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: end;
+
+                        .btn {
+                            width: 80px;
+                            height: 40px;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
