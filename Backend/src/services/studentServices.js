@@ -64,12 +64,18 @@ const getTeacherInfo = async (teacherId) => {
     return rows;
 }
 const getTeacherSchedule = async (teacherId) => {
-    const { rows } = await db.query(
+    let { rows } = await db.query(
         `SELECT *
          FROM schedules
          WHERE teacher_id=$1`,
         [teacherId]
     );
+    rows = rows.map((item) => {
+        const localDate = new Date(item.date_next_week);
+        const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Ho_Chi_Minh" });
+        const formattedDate = formatter.format(localDate);
+        return { ...item, date_next_week: formattedDate };
+    });
     return rows;
 }
 
@@ -129,9 +135,15 @@ const getStudentAppointmentsPending = async (userId) => {
          join users on users.id =  schedules.teacher_id 
          join department on department.id= users.department_id
          where student_id = $1 and status = 'Pending'
-         order by date_next_week desc;`,
+         order by appointments.id desc;`,
         [userId]
     );
+    rows = rows.map((item) => {
+        const localDate = new Date(item.date);
+        const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Ho_Chi_Minh" });
+        const formattedDate = formatter.format(localDate);
+        return { ...item, date: formattedDate };
+    });
     return rows;
 }
 
@@ -142,9 +154,15 @@ const getStudentAppointmentsAccepted = async (userId) => {
          join schedules on schedules.id = appointments.schedule_id
          join users on users.id =  schedules.teacher_id 
          where student_id = $1 and status = 'Accepted'
-         order by date_next_week desc;`,
+         order by appointments.id desc;`,
         [userId]
     );
+    rows = rows.map((item) => {
+        const localDate = new Date(item.date);
+        const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Ho_Chi_Minh" });
+        const formattedDate = formatter.format(localDate);
+        return { ...item, date: formattedDate };
+    });
     return rows;
 }
 
@@ -155,9 +173,15 @@ const getStudentAppointmentsDeclined = async (userId) => {
          join schedules on schedules.id = appointments.schedule_id
          join users on users.id =  schedules.teacher_id 
          where student_id = $1 and status = 'Declined'
-         order by date_next_week desc;`,
+         order by appointments.id desc;`,
         [userId]
     );
+    rows = rows.map((item) => {
+        const localDate = new Date(item.date);
+        const formatter = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Ho_Chi_Minh" });
+        const formattedDate = formatter.format(localDate);
+        return { ...item, date: formattedDate };
+    });
     return rows;
 }
 

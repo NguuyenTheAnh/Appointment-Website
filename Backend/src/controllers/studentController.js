@@ -134,7 +134,7 @@ const getDayOfNextWeek = () => {
 const timeOfDay = (day, schedules) => {
     let listDayOfNextWeek = getDayOfNextWeek();
     const listDay = schedules.filter((schedule) => {
-        return schedule.day == day && listDayOfNextWeek.find((item) => item.date == schedule.date_next_week.toISOString().split("T")[0])
+        return schedule.day == day && listDayOfNextWeek.find((item) => item.date == schedule.date_next_week)
     });
     let listTime = [];
     listDay.forEach(element => {

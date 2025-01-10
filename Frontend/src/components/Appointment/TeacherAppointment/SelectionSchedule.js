@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { useSelector } from 'react-redux';
 import { getTeacherSchedule } from '../../../services/apiStudent';
+import { toast } from 'react-toastify';
+import { addTeacherSchedules, deleteTeacherSchedules, updateTeacherSchedules } from '../../../services/apiTeacher';
 
 const SelectionSchedule = () => {
 
@@ -43,10 +45,91 @@ const SelectionSchedule = () => {
         const data = await getTeacherSchedule(account.id);
         setNextWeek(data.data);
     }
+    const fetchNewDataSchedule = async () => {
+        const listDay = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+        const searchDayIndex = listDay.findIndex((item) => item == day);
+        if (searchDayIndex != -1) {
+            setListTimeOfDate(nextWeek[searchDayIndex].listStartTime);
+        }
+    }
+
+    //func handle click button
+    const handleClickSaveAdd = async () => {
+        //validate
+        const newHourToInt = parseInt(newHour, 10);
+        const newMinuteToInt = parseInt(newMinute, 10);
+        const newSecondToInt = parseInt(newSecond, 10);
+
+        if (
+            isNaN(newHourToInt) || newHourToInt < 0 || newHourToInt > 24 ||
+            isNaN(newMinuteToInt) || newMinuteToInt < 0 || newMinuteToInt > 60 ||
+            isNaN(newSecondToInt) || newSecondToInt < 0 || newSecondToInt > 60
+        ) {
+            toast.error('Invalid time. Please enter again');
+        }
+        else {
+            //call api
+            const { data } = await addTeacherSchedules(date, newHour, newMinute, newSecond);
+            if (data.errorCount == 0) {
+                toast.success(data.message);
+                // reset
+                fetchDataSchedule();
+                handleCloseAdd();
+                setNewHour('');
+                setNewMinute('');
+                setNewSecond('');
+            }
+            else toast.error(data.message);
+        }
+    }
+
+    const handleClickDelete = async () => {
+        const { data } = await deleteTeacherSchedules(date, time);
+        if (data.errorCount == 0) {
+            toast.success(data.message);
+            // reset
+            fetchDataSchedule();
+            handleCloseDelete();
+        }
+        else toast.error(data.message);
+    }
+
+    const handleClickSaveUpdate = async () => {
+        //validate
+        const updateHourToInt = parseInt(updateHour, 10);
+        const updateMinuteToInt = parseInt(updateMinute, 10);
+        const updateSecondToInt = parseInt(updateSecond, 10);
+
+        if (
+            isNaN(updateHourToInt) || updateHourToInt < 0 || updateHourToInt > 24 ||
+            isNaN(updateMinuteToInt) || updateMinuteToInt < 0 || updateMinuteToInt > 60 ||
+            isNaN(updateSecondToInt) || updateSecondToInt < 0 || updateSecondToInt > 60
+        ) {
+            toast.error('Invalid time. Please enter again');
+        }
+        else {
+            const { data } = await updateTeacherSchedules(date, time, updateHour, updateMinute, updateSecond);
+            if (data.errorCount == 0) {
+                toast.success(data.message);
+                // reset
+                fetchDataSchedule();
+                handleCloseUpdate();
+                setUpdateHour('');
+                setUpdateMinute('');
+                setUpdateSecond('');
+            }
+            else toast.error(data.message);
+        }
+
+    }
 
     useEffect(() => {
         fetchDataSchedule();
     }, []);
+
+    useEffect(() => {
+        fetchNewDataSchedule();
+    }, [nextWeek]);
 
     return (
         <div className='appointment-content-schedule'>
@@ -244,10 +327,7 @@ const SelectionSchedule = () => {
                                                         </Button>
                                                         <Button variant="primary"
                                                             onClick={() => {
-                                                                handleCloseAdd();
-                                                                setNewHour('');
-                                                                setNewMinute('');
-                                                                setNewSecond('');
+                                                                handleClickSaveAdd();
                                                             }}
                                                         >
                                                             Save
@@ -304,12 +384,7 @@ const SelectionSchedule = () => {
                                                             Close
                                                         </Button>
                                                         <Button variant="primary"
-                                                            onClick={() => {
-                                                                handleCloseUpdate();
-                                                                setUpdateHour('');
-                                                                setUpdateMinute('');
-                                                                setUpdateSecond('');
-                                                            }}
+                                                            onClick={() => { handleClickSaveUpdate() }}
                                                         >
                                                             Save Changes
                                                         </Button>
@@ -326,7 +401,7 @@ const SelectionSchedule = () => {
                                                         <Button variant="secondary" onClick={handleCloseDelete}>
                                                             Cancel
                                                         </Button>
-                                                        <Button variant="primary" onClick={handleCloseDelete}>
+                                                        <Button variant="primary" onClick={() => handleClickDelete()}>
                                                             Delete
                                                         </Button>
                                                     </Modal.Footer>

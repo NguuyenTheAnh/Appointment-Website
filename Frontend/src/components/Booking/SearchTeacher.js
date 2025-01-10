@@ -10,7 +10,6 @@ const SearchTeacher = (props) => {
         let newListTeacher = listTeacher?.filter((teacher) => {
             return res.data.teachers.findIndex((element) => element.id === teacher.id) != -1
         });
-        console.log(newListTeacher);
         setListTeacher(newListTeacher);
         setName('');
     }

@@ -127,6 +127,23 @@
     }
 
     .modal-body {
+        .confirmation {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .note-teacher-confirmation {
+            border: solid 1px rgb(184, 184, 184);
+            border-radius: 10px;
+            height: 100px;
+            width: 100%;
+            padding: 8px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
         .point-detail {
             font-weight: 500;
         }
@@ -215,5 +232,14 @@
             background-color: #7e7eff;
             border: solid 1px #7e7eff;
         }
+
+        .accept-btn {
+            background-color: rgb(48, 152, 48);
+        }
+
+        .decline-btn {
+            background-color: rgb(200, 67, 67);
+        }
+
     }
 }

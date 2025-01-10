@@ -13,7 +13,14 @@ import {
 } from '../controllers/studentController.js';
 import { apiLogin, apiLogout, apiSignup } from '../controllers/authController.js';
 import { checkUserJWT, checkUserPermission } from '../middleware/jwtAction.js';
-import { apiDeleteTeacherSchedules, apiUpdateTeacherSchedules } from '../controllers/teacherController.js';
+import {
+    apiAddTeacherSchedules,
+    apiChangeStatusOfAppointment,
+    apiDeleteTeacherSchedules,
+    apiGetAllTeacherAppointments,
+    apiGetTeacherAppointmentsByStatus,
+    apiUpdateTeacherSchedules
+} from '../controllers/teacherController.js';
 
 const router = express.Router();
 
@@ -44,8 +51,15 @@ router.post("/api/login", apiLogin) //login
 router.post("/api/logout", apiLogout) //logout
 
 // teacher
+// >>> 1. CRUD schedules
 router.post("/api/updateTeacherSchedules", checkUserJWT, apiUpdateTeacherSchedules);
 router.post("/api/deleteTeacherSchedules", checkUserJWT, apiDeleteTeacherSchedules);
+router.post("/api/addTeacherSchedules", checkUserJWT, apiAddTeacherSchedules);
+// >>> 2. Teacher's appointments
+router.get("/api/getAllTeacherAppointments", checkUserJWT, apiGetAllTeacherAppointments);
+router.get("/api/getTeacherAppointmentsByStatus", checkUserJWT, apiGetTeacherAppointmentsByStatus);
+router.post("/api/changeStatusOfAppointment/:appointmentId", checkUserJWT, apiChangeStatusOfAppointment);
+
 
 // >>> 1
 // schedules

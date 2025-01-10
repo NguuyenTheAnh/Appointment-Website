@@ -89,7 +89,7 @@ const StudentAppointment = () => {
                                                                     <p><span className='point-detail'>Day: </span>{detailInfo.day}</p>
                                                                     <p><span className='point-detail'>At: </span>{detailInfo.start_time}</p>
                                                                     <p
-                                                                        className={detailInfo.status == "Pending" ? 'pending' : (item.status == "Accepted" ? 'accepted' : 'declined')}
+                                                                        className={detailInfo.status == "Pending" ? 'pending' : (detailInfo.status == "Accepted" ? 'accepted' : 'declined')}
                                                                     >
                                                                         <span className='point-detail'>Status: </span>
                                                                         <span className='status'>{detailInfo.status}</span>
@@ -99,7 +99,7 @@ const StudentAppointment = () => {
                                                                             ?
                                                                             <p>
                                                                                 <span className='point-detail'>My note: </span>
-                                                                                {detailInfo.note_student}
+                                                                                {detailInfo.note_student ? detailInfo.note_student : `Don't have any notation`}
                                                                             </p>
                                                                             :
                                                                             <p>
