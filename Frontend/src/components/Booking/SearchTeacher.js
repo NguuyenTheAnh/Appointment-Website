@@ -7,10 +7,10 @@ const SearchTeacher = (props) => {
     const [name, setName] = useState('');
     const fetchDataSearchedTeachers = async () => {
         const res = await searchTeachers(name);
-        let newListTeacher = listTeacher?.filter((teacher) => {
-            return res.data.teachers.findIndex((element) => element.id === teacher.id) != -1
-        });
-        setListTeacher(newListTeacher);
+        // let newListTeacher = listTeacher?.filter((teacher) => {
+        //     return res.data.teachers.findIndex((element) => element.id === teacher.id) != -1
+        // });
+        setListTeacher(res.data.teachers);
         setName('');
     }
 
