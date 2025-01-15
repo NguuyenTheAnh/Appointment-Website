@@ -26,6 +26,8 @@ const Booking = () => {
             />
             <SearchTeacher
                 listTeacher={listTeacher} setListTeacher={setListTeacher}
+                setShowPageListTeacher={setShowPageListTeacher}
+                setShowPageDepartment={setShowPageDepartment}
             />
         </div>
     );

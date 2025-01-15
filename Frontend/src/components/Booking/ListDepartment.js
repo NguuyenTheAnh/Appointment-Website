@@ -58,6 +58,8 @@ const Department = (props) => {
                             fetchDataListTeacher(1);
                             setActiveFilter(false);
                             setDepartmentId(0);
+                            setShowPageDepartment(false);
+                            setShowPageListTeacher(true);
                         }}
                     >
                         <b>Department</b>
@@ -87,6 +89,7 @@ const Department = (props) => {
                                 setShowPageDepartment(true);
                                 setShowPageListTeacher(false);
                                 setActive(true);
+                                setActiveFilter(true);
                             }}
                         >
                             {item}

@@ -3,7 +3,7 @@ import { searchTeachers } from '../../services/apiStudent';
 
 
 const SearchTeacher = (props) => {
-    const { listTeacher, setListTeacher } = props;
+    const { listTeacher, setListTeacher, setShowPageListTeacher, setShowPageDepartment } = props;
     const [name, setName] = useState('');
     const fetchDataSearchedTeachers = async () => {
         const res = await searchTeachers(name);
@@ -11,6 +11,8 @@ const SearchTeacher = (props) => {
         //     return res.data.teachers.findIndex((element) => element.id === teacher.id) != -1
         // });
         setListTeacher(res.data.teachers);
+        setShowPageListTeacher(false);
+        setShowPageDepartment(false);
         setName('');
     }
 

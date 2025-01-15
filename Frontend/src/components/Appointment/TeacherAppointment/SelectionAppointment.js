@@ -14,6 +14,7 @@ const SelectionAppointment = () => {
     const [status, setStatus] = useState('');
     const [appointmentId, setAppointmentId] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
+    const [activeFilterByStatus, setActiveFilterByStatus] = useState(false);
 
     //modal detail
     const [showDetail, setShowDetail] = useState(false);
@@ -46,11 +47,13 @@ const SelectionAppointment = () => {
         }
     }
     useEffect(() => {
-        fetchDataAllAppointments();
+        if (!activeFilterByStatus)
+            fetchDataAllAppointments();
     }, []);
 
     useEffect(() => {
-        fetchDataAppointmentsByStatus();
+        if (activeFilterByStatus)
+            fetchDataAppointmentsByStatus();
     }, [filterStatus])
 
     const handleAcceptConfirm = async () => {
@@ -89,10 +92,10 @@ const SelectionAppointment = () => {
                 <p>My Appointments</p>
                 <div className='dd-toggle'>
                     <DropdownButton id="dropdown-basic-button" title="Filter by ">
-                        <Dropdown.Item onClick={() => setFilterStatus("All")}>All</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setFilterStatus("Pending")}>Pending</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setFilterStatus("Accepted")}>Accepted</Dropdown.Item>
-                        <Dropdown.Item onClick={() => setFilterStatus("Declined")}>Declined</Dropdown.Item>
+                        <Dropdown.Item onClick={() => { setActiveFilterByStatus(true); setFilterStatus("All") }}>All</Dropdown.Item>
+                        <Dropdown.Item onClick={() => { setActiveFilterByStatus(true); setFilterStatus("Pending") }}>Pending</Dropdown.Item>
+                        <Dropdown.Item onClick={() => { setActiveFilterByStatus(true); setFilterStatus("Accepted") }}>Accepted</Dropdown.Item>
+                        <Dropdown.Item onClick={() => { setActiveFilterByStatus(true); setFilterStatus("Declined") }}>Declined</Dropdown.Item>
                     </DropdownButton>
                 </div>
             </div>
